@@ -18,7 +18,7 @@ function shareToWhatsApp() {
     "Anniversary & Christmas Celebration\n" +
     "📅 November 7–8, 2026\n" +
     "📍 Villa Nirmala Hills, Ciawi\n\n" +
-    "Cek detail lengkap, dress code & gift exchange di:\n" +
+    "Check out the full itinerary, dress code & gift exchange details at:\n" +
     window.location.href
   )
   window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank')
@@ -77,7 +77,7 @@ function closeMobileMenu() {
           @click="emit('toggle-snow')"
           type="button"
           class="flex h-9 w-9 items-center justify-center rounded-full border border-gold-400/30 bg-maroon-900/60 text-gold-300 transition hover:bg-maroon-800 hover:border-gold-400"
-          :title="snowEnabled ? 'Matikan Efek Salju' : 'Nyalakan Efek Salju'"
+          :title="snowEnabled ? 'Turn Off Snow Effect' : 'Turn On Snow Effect'"
         >
           <Snowflake class="h-4 w-4" :class="{ 'text-gold-400 animate-spin-slow': snowEnabled, 'text-cream-300/40': !snowEnabled }" />
         </button>
@@ -150,7 +150,7 @@ function closeMobileMenu() {
               class="w-full flex items-center justify-center gap-2 rounded-xl bg-gold-400 px-4 py-2.5 text-xs font-bold text-maroon-950 shadow-md"
             >
               <Share2 class="h-4 w-4" />
-              <span>Bagikan ke Grup WhatsApp</span>
+              <span>Share to WhatsApp Group</span>
             </button>
           </div>
         </div>

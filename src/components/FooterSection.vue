@@ -12,7 +12,7 @@ function shareToWhatsApp() {
     "Anniversary & Christmas Celebration\n" +
     "📅 November 7–8, 2026\n" +
     "📍 Villa Nirmala Hills, Ciawi\n\n" +
-    "Yuk cek detail lengkap, dress code & panduan tukar kado di:\n" +
+    "Check out the complete itinerary, dress code & gift exchange guide at:\n" +
     window.location.href
   )
   window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank')
@@ -54,7 +54,7 @@ function shareToWhatsApp() {
           class="inline-flex items-center gap-2 rounded-full bg-gold-400 px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-maroon-950 shadow-gold-glow hover:bg-gold-300 transition duration-300 hover:scale-105"
         >
           <Share2 class="h-4 w-4" />
-          <span>Bagikan Undangan ke WhatsApp</span>
+          <span>Share Invitation to WhatsApp</span>
         </button>
       </div>
 
@@ -71,7 +71,7 @@ function shareToWhatsApp() {
           type="button"
           class="flex items-center gap-1.5 text-gold-400/80 hover:text-gold-300 transition"
         >
-          <span>Kembali ke Atas</span>
+          <span>Back to Top</span>
           <ArrowUp class="h-3.5 w-3.5" />
         </button>
       </div>

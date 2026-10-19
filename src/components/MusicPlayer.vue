@@ -21,7 +21,7 @@ function toggleAudio() {
       isPlaying.value = true
     }).catch((err) => {
       console.warn("Audio autoplay blocked by browser policy:", err)
-      errorNotice.value = "Ketuk sekali lagi untuk memutar musik!"
+      errorNotice.value = "Tap once more to play holiday music!"
       setTimeout(() => { errorNotice.value = '' }, 3000)
     })
   }

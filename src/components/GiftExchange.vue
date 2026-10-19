@@ -14,7 +14,7 @@ const modalOpen = ref(false)
       <!-- Section Header -->
       <div class="text-center max-w-2xl mx-auto">
         <span class="inline-block text-xs font-bold uppercase tracking-[0.25em] text-gold-400 mb-2">
-          Secret Santa & Tukar Kado
+          Secret Santa & Gift Exchange
         </span>
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-cream-50 leading-tight">
           A LITTLE GIFT, A LOT OF LOVE ❤️
@@ -47,7 +47,7 @@ const modalOpen = ref(false)
               Rp 100.000
             </div>
             <p class="text-xs text-maroon-900/80 leading-relaxed">
-              Budget yang merata dan terjangkau untuk semua. Usahakan nilainya mendekati Rp 100.000 agar adil dan berkesan bagi setiap orang.
+              A fair and thoughtful budget for everyone. Please aim as close to Rp 100,000 as possible so each member receives something equally special.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ const modalOpen = ref(false)
               Wrapped in brown paper
             </div>
             <p class="text-xs text-cream-200/80 leading-relaxed">
-              Bungkus kado menggunakan <strong>kertas samson / kraft cokelat</strong> polos. Tampilan vintage rustic yang hangat dan seragam saat dikumpulkan di bawah pohon Natal.
+              Wrap your present using plain <strong>brown kraft paper</strong>. A rustic vintage aesthetic that looks cozy and unified under the Christmas tree.
             </p>
           </div>
 
@@ -101,7 +101,7 @@ const modalOpen = ref(false)
               Unisex and not food
             </div>
             <p class="text-xs text-maroon-900/80 leading-relaxed">
-              Kado harus bisa dinikmati siapa saja (pria maupun wanita) dan tahan lama (bukan makanan/minuman yang habis dikonsumsi).
+              Gifts must be unisex (suitable for anyone) and non-perishable (no consumable food, snacks, or drinks).
             </p>
           </div>
 
@@ -132,7 +132,7 @@ const modalOpen = ref(false)
               class="inline-flex items-center gap-2 rounded-full border border-gold-400 bg-gold-400 px-6 py-3 text-xs font-bold uppercase tracking-wider text-maroon-950 shadow-gold-glow hover:bg-gold-300 transition duration-300 hover:scale-105"
             >
               <Lightbulb class="h-4 w-4" />
-              <span>Butuh Ide Kado? Lihat Inspirasi 💡</span>
+              <span>Need Gift Ideas? View Inspiration 💡</span>
             </button>
           </div>
         </div>

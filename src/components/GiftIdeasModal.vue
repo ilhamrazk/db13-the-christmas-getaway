@@ -42,14 +42,14 @@ const emit = defineEmits(['close'])
           <!-- Modal Header -->
           <div class="flex items-center gap-2 text-gold-400 text-xs font-bold uppercase tracking-wider mb-2">
             <Lightbulb class="h-4 w-4 text-gold-400" />
-            <span>Inspirasi Kado Natal DB13</span>
+            <span>DB13 Christmas Gift Inspiration</span>
           </div>
 
           <h3 class="text-xl sm:text-2xl font-serif font-bold text-cream-50">
-            Ide Kado Unisex (< Rp100.000)
+            Unisex Gift Ideas (Under Rp 100,000)
           </h3>
           <p class="text-xs text-cream-300/80 mt-1 mb-6">
-            Sesuai aturan: bernilai ~Rp100.000, cocok untuk pria/wanita, dan bukan makanan.
+            Following the rules: ~Rp 100,000 in value, universally enjoyable, and non-perishable.
           </p>
 
           <!-- Ideas List (Scrollable) -->
@@ -79,10 +79,10 @@ const emit = defineEmits(['close'])
             <div class="rounded-2xl border border-dashed border-gold-400/40 bg-gold-400/10 p-4 text-center">
               <span class="text-lg">🎀</span>
               <p class="text-xs font-semibold text-gold-300 mt-1">
-                Jangan Lupa Aturan Pembungkusan!
+                Don't Forget the Wrapping Rule!
               </p>
               <p class="text-[11px] text-cream-200/80 mt-0.5">
-                Bungkus kado menggunakan <strong>kertas cokelat polos</strong> (brown paper) dengan pita atau tali rami untuk kesan rustic Christmas.
+                Wrap your present in <strong>plain brown craft paper</strong> with festive ribbon or rustic twine for cozy holiday charm.
               </p>
             </div>
           </div>
@@ -94,7 +94,7 @@ const emit = defineEmits(['close'])
               type="button"
               class="rounded-xl bg-gold-400 px-5 py-2 text-xs font-bold uppercase tracking-wider text-maroon-950 hover:bg-gold-300 transition"
             >
-              Mengerti & Siap Bungkus ✨
+              Got It & Ready to Wrap! ✨
             </button>
           </div>
 

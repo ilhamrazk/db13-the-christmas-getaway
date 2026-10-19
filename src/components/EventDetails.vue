@@ -159,7 +159,7 @@ function openGoogleCalendar() {
               >
                 <Check v-if="copied" class="h-3.5 w-3.5 text-emerald-700" />
                 <Copy v-else class="h-3.5 w-3.5 text-maroon-700" />
-                <span>{{ copied ? 'Tersalin!' : 'Salin Alamat' }}</span>
+                <span>{{ copied ? 'Copied!' : 'Copy Address' }}</span>
               </button>
             </div>
 
@@ -193,16 +193,16 @@ function openGoogleCalendar() {
                     <Navigation class="h-6 w-6 text-gold-400" />
                   </div>
                   <span class="text-xs font-bold text-cream-50 group-hover:text-gold-300 transition-colors">
-                    Klik untuk Navigasi Rute
+                    Click for Directions & Route
                   </span>
                   <span class="text-[10px] text-cream-300/70 mt-1">
-                    Buka langsung di aplikasi Google Maps
+                    Open directly in Google Maps app
                   </span>
                 </div>
               </a>
 
               <p class="text-[11px] text-cream-300/80 text-center mt-3">
-                Tips: Disarankan berangkat bersama-sama atau konvoi dari Bekasi.
+                Tip: Carpooling or convoying together from Bekasi is recommended.
               </p>
             </div>
           </div>
@@ -255,7 +255,7 @@ function openGoogleCalendar() {
           <!-- Interactive Accessory Packing Selector -->
           <div class="w-full md:w-auto flex-shrink-0">
             <span class="block text-[11px] font-semibold uppercase tracking-wider text-gold-400 text-center md:text-right mb-3">
-              Checklist Aksesoris Kamu:
+              Your Accessories Checklist:
             </span>
             <div class="grid grid-cols-2 gap-2.5 sm:gap-3">
               <button
@@ -272,7 +272,7 @@ function openGoogleCalendar() {
                 <div class="flex flex-col">
                   <span class="font-medium leading-none">{{ item.label }}</span>
                   <span class="text-[9px] text-cream-400/60 mt-0.5">
-                    {{ packedAccessories.has(item.id) ? 'Sudah siap! ✓' : 'Siapkan' }}
+                    {{ packedAccessories.has(item.id) ? 'Ready! ✓' : 'Pack this' }}
                   </span>
                 </div>
               </button>
