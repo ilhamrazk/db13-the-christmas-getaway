@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom luxury scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1A0508;
+}
+::-webkit-scrollbar-thumb {
+  background: #4A0E17;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E5B869;
+}
+
+/* Gold double line luxury border utility */
+.border-gold-double {
+  border: 1px solid rgba(229, 184, 105, 0.4);
+  outline: 1px solid rgba(229, 184, 105, 0.2);
+  outline-offset: 4px;
+}
+
+/* Subtle gold shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.text-gold-shimmer {
+  background: linear-gradient(90deg, #D4AF37 0%, #FFFDF9 50%, #D4AF37 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 6s ease-in-out infinite;
+}
