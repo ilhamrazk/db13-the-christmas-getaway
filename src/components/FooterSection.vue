@@ -1,22 +1,11 @@
 <script setup>
-import { Heart, Share2, ArrowUp, Calendar, MapPin } from 'lucide-vue-next'
+import { Heart, ArrowUp, Calendar, MapPin } from 'lucide-vue-next'
 import { eventData } from '../data/eventData.js'
 
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-function shareToWhatsApp() {
-  const text = encodeURIComponent(
-    "🎄 *DATE BEKASI 13: THE CHRISTMAS GETAWAY* 🎄\n" +
-    "Anniversary & Christmas Celebration\n" +
-    "📅 November 7–8, 2026\n" +
-    "📍 Villa Nirmala Hills, Ciawi\n\n" +
-    "Check out the complete itinerary, dress code & gift exchange guide at:\n" +
-    window.location.href
-  )
-  window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank')
-}
 </script>
 
 <template>
@@ -46,17 +35,6 @@ function shareToWhatsApp() {
         </span>
       </div>
 
-      <!-- Share CTA Button -->
-      <div class="pt-2">
-        <button
-          @click="shareToWhatsApp"
-          type="button"
-          class="inline-flex items-center gap-2 rounded-full bg-gold-400 px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-maroon-950 shadow-gold-glow hover:bg-gold-300 transition duration-300 hover:scale-105"
-        >
-          <Share2 class="h-4 w-4" />
-          <span>Share Invitation to WhatsApp</span>
-        </button>
-      </div>
 
       <!-- Divider with Back to Top -->
       <div class="w-full pt-8 border-t border-maroon-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream-400/70">

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Snowflake, Share2, Menu, X, Sparkles } from 'lucide-vue-next'
+import { Snowflake, Menu, X, Sparkles } from 'lucide-vue-next'
 
 const props = defineProps({
   snowEnabled: {
@@ -12,17 +12,6 @@ const props = defineProps({
 const emit = defineEmits(['toggle-snow'])
 const mobileMenuOpen = ref(false)
 
-function shareToWhatsApp() {
-  const text = encodeURIComponent(
-    "🎄 *DATE BEKASI 13: THE CHRISTMAS GETAWAY* 🎄\n" +
-    "Anniversary & Christmas Celebration\n" +
-    "📅 November 7–8, 2026\n" +
-    "📍 Villa Nirmala Hills, Ciawi\n\n" +
-    "Check out the full itinerary, dress code & gift exchange details at:\n" +
-    window.location.href
-  )
-  window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank')
-}
 
 function closeMobileMenu() {
   mobileMenuOpen.value = false
@@ -82,15 +71,6 @@ function closeMobileMenu() {
           <Snowflake class="h-4 w-4" :class="{ 'text-gold-400 animate-spin-slow': snowEnabled, 'text-cream-300/40': !snowEnabled }" />
         </button>
 
-        <!-- Share Button -->
-        <button
-          @click="shareToWhatsApp"
-          type="button"
-          class="hidden sm:flex items-center gap-2 rounded-full border border-gold-400/40 bg-gold-400/10 px-3.5 py-1.5 text-xs font-semibold text-gold-300 transition hover:bg-gold-400 hover:text-maroon-950"
-        >
-          <Share2 class="h-3.5 w-3.5" />
-          <span>Share</span>
-        </button>
 
         <!-- Mobile Menu Toggle Button -->
         <button
@@ -144,15 +124,6 @@ function closeMobileMenu() {
             <span class="text-xs text-gold-400">03</span>
           </a>
 
-          <div class="pt-2">
-            <button
-              @click="shareToWhatsApp(); closeMobileMenu()"
-              class="w-full flex items-center justify-center gap-2 rounded-xl bg-gold-400 px-4 py-2.5 text-xs font-bold text-maroon-950 shadow-md"
-            >
-              <Share2 class="h-4 w-4" />
-              <span>Share to WhatsApp Group</span>
-            </button>
-          </div>
         </div>
       </div>
     </transition>
