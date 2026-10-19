@@ -1,0 +1,19 @@
+tolong kamu buatkan init.md
+
+mengenai project ini, saya ingin membuat website untuk acara natal untuk teman teman saya
+
+komunitas saya namanya "Date Bekasi 13"
+
+saya sudah membuatkan page1, page2 dan page 3 dalam bentuk txt
+
+untuk webnya colour paletenya bisa mengambil dari folder reference
+
+bentukan desgin saya serahkan semuanya ke kamu,
+
+saya yang penting contentnya bagus dan rapih.
+
+gunakan framework vue, tailwind dan apapun itu saya serahkan semuanya ke kamu
+
+kamu bebas berkreativitas.
+
+tolong buatkan file md sampai ke low level, agar model yang yang lebih murah bisa mengimplementasi dengan baik.
