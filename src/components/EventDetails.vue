@@ -265,25 +265,32 @@ function openGoogleCalendar() {
 
           <!-- Interactive Accessory Packing Selector -->
           <div class="w-full md:w-auto flex-shrink-0">
-            <span class="block text-[11px] font-semibold uppercase tracking-wider text-festive-crimson text-center md:text-right mb-3 font-serif">
-              Your Accessories Checklist:
-            </span>
+            <div class="flex items-center justify-center md:justify-end gap-2 mb-3">
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-festive-crimson font-serif">
+                Your Accessories Checklist:
+              </span>
+              <span class="inline-flex items-center gap-1 rounded-full bg-festive-sand/60 px-2 py-0.5 text-[10px] font-medium text-festive-crimson animate-pulse shadow-sm">
+                <span>👆</span>
+                <span>Tap to check</span>
+              </span>
+            </div>
             <div class="grid grid-cols-2 gap-2.5 sm:gap-3">
               <button
                 v-for="item in eventData.dressCode.accessories.options"
                 :key="item.id"
                 @click="toggleAccessory(item.id)"
                 type="button"
-                class="flex items-center gap-2 rounded-xl border p-2.5 text-xs transition-all duration-200 text-left shadow-sm"
+                class="group relative flex items-center gap-2 rounded-xl border p-2.5 text-xs transition-all duration-200 text-left shadow-sm cursor-pointer hover:-translate-y-0.5 hover:shadow-md"
                 :class="packedAccessories.has(item.id)
-                  ? 'border-festive-crimson bg-festive-crimson text-white shadow-sm'
-                  : 'border-festive-sand bg-festive-cream text-festive-espresso hover:border-festive-crimson/50'"
+                  ? 'border-festive-crimson bg-festive-crimson text-white shadow-sm ring-2 ring-festive-crimson/30'
+                  : 'border-festive-sand bg-festive-cream text-festive-espresso hover:border-festive-crimson/60 hover:bg-white'"
               >
-                <span class="text-lg">{{ item.icon }}</span>
-                <div class="flex flex-col">
-                  <span class="font-medium leading-none">{{ item.label }}</span>
-                  <span class="text-[9px] mt-0.5" :class="packedAccessories.has(item.id) ? 'text-white/80' : 'text-festive-espresso/60'">
-                    {{ packedAccessories.has(item.id) ? 'Ready! ✓' : 'Pack this' }}
+                <span class="text-lg transition-transform group-hover:scale-110">{{ item.icon }}</span>
+                <div class="flex flex-col flex-1 min-w-0">
+                  <span class="font-medium leading-none truncate">{{ item.label }}</span>
+                  <span class="text-[9px] mt-1 flex items-center gap-1" :class="packedAccessories.has(item.id) ? 'text-white/90 font-semibold' : 'text-festive-espresso/60'">
+                    <span v-if="packedAccessories.has(item.id)">✓ Checked</span>
+                    <span v-else class="text-festive-crimson/80 group-hover:underline">Tap to check</span>
                   </span>
                 </div>
               </button>
