@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Gift, Package, HeartHandshake, Sparkles, Lightbulb, Heart } from 'lucide-vue-next'
+import { Gift, Package, HeartHandshake, Sparkles, Lightbulb, Heart, CircleDollarSign } from 'lucide-vue-next'
 import GiftIdeasModal from './GiftIdeasModal.vue'
 import { eventData } from '../data/eventData.js'
 
@@ -14,10 +14,10 @@ const modalOpen = ref(false)
       <!-- Section Header -->
       <div class="text-center max-w-2xl mx-auto">
         <span class="inline-block text-xs font-bold uppercase tracking-[0.25em] text-gold-400 mb-2">
-          Secret Santa & Gift Exchange
+          Secret Santa Tradition
         </span>
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-cream-50 leading-tight">
-          A LITTLE GIFT, A LOT OF LOVE ❤️
+          🎁 {{ eventData.giftExchange.title }}
         </h2>
         <p class="font-script text-2xl sm:text-3xl text-gold-300 mt-2">
           {{ eventData.giftExchange.subtitle }}
@@ -37,14 +37,14 @@ const modalOpen = ref(false)
               <span class="rounded-full bg-maroon-900/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-maroon-800">
                 Rule 01
               </span>
-              <span class="text-2xl">🎁</span>
+              <span class="text-2xl">💰</span>
             </div>
 
             <h3 class="text-sm font-bold uppercase tracking-wider text-maroon-700">
               Gift Budget
             </h3>
             <div class="text-2xl sm:text-3xl font-serif font-bold text-maroon-950 my-2">
-              Rp 100.000
+              Rp 100,000
             </div>
             <p class="text-xs text-maroon-900/80 leading-relaxed">
               A fair and thoughtful budget for everyone. Please aim as close to Rp 100,000 as possible so each member receives something equally special.
@@ -71,10 +71,10 @@ const modalOpen = ref(false)
               Wrapping Style
             </h3>
             <div class="text-xl sm:text-2xl font-serif font-bold text-cream-50 my-2 leading-snug">
-              Wrapped in brown paper
+              Brown paper wrapping
             </div>
             <p class="text-xs text-cream-200/80 leading-relaxed">
-              Wrap your present using plain <strong>brown kraft paper</strong>. A rustic vintage aesthetic that looks cozy and unified under the Christmas tree.
+              Wrap your present using plain <strong>brown craft paper</strong>. A rustic vintage aesthetic that looks cozy and unified under the Christmas tree.
             </p>
           </div>
 
@@ -91,17 +91,17 @@ const modalOpen = ref(false)
               <span class="rounded-full bg-maroon-900/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-maroon-800">
                 Rule 03
               </span>
-              <span class="text-2xl">💌</span>
+              <span class="text-2xl">🎁</span>
             </div>
 
             <h3 class="text-sm font-bold uppercase tracking-wider text-maroon-700">
               Gift Rules
             </h3>
             <div class="text-xl sm:text-2xl font-serif font-bold text-maroon-950 my-2 leading-snug">
-              Unisex and not food
+              Unisex gifts only
             </div>
             <p class="text-xs text-maroon-900/80 leading-relaxed">
-              Gifts must be unisex (suitable for anyone) and non-perishable (no consumable food, snacks, or drinks).
+              Unisex gifts only — <strong>no food items, please!</strong> Must be enjoyable for anyone (brother or sister) and non-perishable.
             </p>
           </div>
 
@@ -113,7 +113,7 @@ const modalOpen = ref(false)
 
       </div>
 
-      <!-- Thoughtful Philosophy Card (Inspired by website 2.jpeg Meraki Card) -->
+      <!-- Thoughtful Philosophy Card (Updated with page-3-rev-1.txt quote & CTA) -->
       <div class="relative rounded-3xl border border-gold-400/40 bg-gradient-to-r from-maroon-900/90 via-maroon-800/80 to-maroon-900/90 p-8 sm:p-12 text-center shadow-maroon-deep">
         
         <div class="max-w-2xl mx-auto space-y-4">
@@ -123,6 +123,10 @@ const modalOpen = ref(false)
 
           <p class="font-serif text-lg sm:text-2xl text-cream-50 leading-relaxed italic">
             “{{ eventData.giftExchange.philosophy }}”
+          </p>
+
+          <p class="font-sans text-xs sm:text-sm font-medium text-gold-300 mt-2">
+            {{ eventData.giftExchange.callToAction }}
           </p>
 
           <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
