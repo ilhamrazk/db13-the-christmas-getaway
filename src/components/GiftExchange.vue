@@ -13,119 +13,128 @@ const modalOpen = ref(false)
       
       <!-- Section Header -->
       <div class="text-center max-w-2xl mx-auto">
-        <span class="inline-block text-xs font-bold uppercase tracking-[0.25em] text-gold-400 mb-2">
+        <!-- Figma Gifts Stack Vector Illustration Centerpiece -->
+        <div class="flex justify-center mb-4">
+          <img
+            src="/images/figma/gifts-stack.svg"
+            alt="Christmas Gifts Stack"
+            class="h-24 sm:h-28 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform"
+          />
+        </div>
+
+        <span class="inline-block text-xs font-serif font-bold uppercase tracking-[0.25em] text-festive-crimson mb-2">
           Secret Santa Tradition
         </span>
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-cream-50 leading-tight">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-festive-espresso leading-tight">
           🎁 {{ eventData.giftExchange.title }}
         </h2>
-        <p class="font-script text-2xl sm:text-3xl text-gold-300 mt-2">
+        <p class="font-script text-2xl sm:text-3xl text-festive-crimson mt-2">
           {{ eventData.giftExchange.subtitle }}
         </p>
-        <p class="text-xs sm:text-sm uppercase tracking-widest text-cream-300/80 mt-2">
+        <p class="text-xs sm:text-sm uppercase tracking-widest text-festive-espresso/70 mt-2 font-serif">
           {{ eventData.giftExchange.headline }}
         </p>
       </div>
 
-      <!-- 3 Rule Cards (Inspired by Reference 2 layout & paper cards) -->
+      <!-- 3 Arched Rule Cards (Inspired by Reference Arched Cards) -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Rule 1: Budget -->
-        <div class="group relative rounded-3xl border border-gold-400/30 bg-cream-100 p-6 sm:p-7 text-maroon-950 shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-gold-glow/30 flex flex-col justify-between">
+        <div class="group relative rounded-t-[90px] rounded-b-3xl border border-festive-sand bg-white p-6 sm:p-7 text-festive-espresso shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between pt-8">
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="rounded-full bg-maroon-900/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-maroon-800">
+              <span class="rounded-full bg-festive-sand/50 px-3 py-1 text-[11px] font-serif font-bold uppercase tracking-wider text-festive-crimson">
                 Rule 01
               </span>
-              <span class="text-2xl">💰</span>
+              <img src="/images/figma/christmas-ornament.svg" alt="Ornament" class="w-7 h-7" />
             </div>
 
-            <h3 class="text-sm font-bold uppercase tracking-wider text-maroon-700">
+            <h3 class="text-sm font-serif font-bold uppercase tracking-wider text-festive-crimson">
               Gift Budget
             </h3>
-            <div class="text-2xl sm:text-3xl font-serif font-bold text-maroon-950 my-2">
+            <div class="text-2xl sm:text-3xl font-serif font-bold text-festive-espresso my-2">
               Rp 100,000
             </div>
-            <p class="text-xs text-maroon-900/80 leading-relaxed">
+            <p class="text-xs text-festive-espresso/80 leading-relaxed font-serif">
               A fair and thoughtful budget for everyone. Please aim as close to Rp 100,000 as possible so each member receives something equally special.
             </p>
           </div>
 
-          <div class="mt-6 pt-4 border-t border-maroon-900/10 text-[11px] font-semibold text-maroon-800 flex items-center gap-1.5">
-            <Sparkles class="h-3 w-3 text-gold-500" />
+          <div class="mt-6 pt-4 border-t border-festive-sand text-[11px] font-semibold text-festive-crimson flex items-center gap-1.5 font-serif">
+            <Sparkles class="h-3 w-3 text-festive-crimson" />
             <span>Fair & Inclusive</span>
           </div>
         </div>
 
         <!-- Rule 2: Wrapping -->
-        <div class="group relative rounded-3xl border border-gold-400/40 bg-gradient-to-b from-[#8C5D3A]/20 via-maroon-900/80 to-maroon-950/90 p-6 sm:p-7 text-cream-100 shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-maroon-deep flex flex-col justify-between backdrop-blur-md">
+        <div class="group relative rounded-t-[90px] rounded-b-3xl border border-festive-sand bg-festive-cream p-6 sm:p-7 text-festive-espresso shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between pt-8">
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="rounded-full bg-gold-400/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-gold-300 border border-gold-400/30">
+              <span class="rounded-full bg-festive-crimson/15 px-3 py-1 text-[11px] font-serif font-bold uppercase tracking-wider text-festive-crimson border border-festive-crimson/20">
                 Rule 02
               </span>
-              <span class="text-2xl">🎀</span>
+              <img src="/images/figma/christmas-sock.svg" alt="Sock" class="w-7 h-7" />
             </div>
 
-            <h3 class="text-sm font-bold uppercase tracking-wider text-gold-400">
+            <h3 class="text-sm font-serif font-bold uppercase tracking-wider text-festive-crimson">
               Wrapping Style
             </h3>
-            <div class="text-xl sm:text-2xl font-serif font-bold text-cream-50 my-2 leading-snug">
+            <div class="text-xl sm:text-2xl font-serif font-bold text-festive-espresso my-2 leading-snug">
               Brown paper wrapping
             </div>
-            <p class="text-xs text-cream-200/80 leading-relaxed">
+            <p class="text-xs text-festive-espresso/80 leading-relaxed font-serif">
               Wrap your present using plain <strong>brown craft paper</strong>. A rustic vintage aesthetic that looks cozy and unified under the Christmas tree.
             </p>
           </div>
 
-          <div class="mt-6 pt-4 border-t border-gold-400/20 text-[11px] font-semibold text-gold-300 flex items-center gap-1.5">
-            <Sparkles class="h-3 w-3 text-gold-400" />
+          <div class="mt-6 pt-4 border-t border-festive-sand text-[11px] font-semibold text-festive-crimson flex items-center gap-1.5 font-serif">
+            <Sparkles class="h-3 w-3 text-festive-crimson" />
             <span>Rustic Christmas Aesthetic</span>
           </div>
         </div>
 
         <!-- Rule 3: Guidelines -->
-        <div class="group relative rounded-3xl border border-gold-400/30 bg-cream-100 p-6 sm:p-7 text-maroon-950 shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-gold-glow/30 flex flex-col justify-between">
+        <div class="group relative rounded-t-[90px] rounded-b-3xl border border-festive-sand bg-white p-6 sm:p-7 text-festive-espresso shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between pt-8">
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="rounded-full bg-maroon-900/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-maroon-800">
+              <span class="rounded-full bg-festive-sand/50 px-3 py-1 text-[11px] font-serif font-bold uppercase tracking-wider text-festive-crimson">
                 Rule 03
               </span>
-              <span class="text-2xl">🎁</span>
+              <img src="/images/figma/gingerbread-man.svg" alt="Gingerbread" class="w-7 h-7" />
             </div>
 
-            <h3 class="text-sm font-bold uppercase tracking-wider text-maroon-700">
+            <h3 class="text-sm font-serif font-bold uppercase tracking-wider text-festive-crimson">
               Gift Rules
             </h3>
-            <div class="text-xl sm:text-2xl font-serif font-bold text-maroon-950 my-2 leading-snug">
+            <div class="text-xl sm:text-2xl font-serif font-bold text-festive-espresso my-2 leading-snug">
               Unisex gifts only
             </div>
-            <p class="text-xs text-maroon-900/80 leading-relaxed">
+            <p class="text-xs text-festive-espresso/80 leading-relaxed font-serif">
               Unisex gifts only — <strong>no food items, please!</strong> Must be enjoyable for anyone (brother or sister) and non-perishable.
             </p>
           </div>
 
-          <div class="mt-6 pt-4 border-t border-maroon-900/10 text-[11px] font-semibold text-maroon-800 flex items-center gap-1.5">
-            <Sparkles class="h-3 w-3 text-gold-500" />
+          <div class="mt-6 pt-4 border-t border-festive-sand text-[11px] font-semibold text-festive-crimson flex items-center gap-1.5 font-serif">
+            <Sparkles class="h-3 w-3 text-festive-crimson" />
             <span>Lasting & Universal</span>
           </div>
         </div>
 
       </div>
 
-      <!-- Thoughtful Philosophy Card (Updated with page-3-rev-1.txt quote & CTA) -->
-      <div class="relative rounded-3xl border border-gold-400/40 bg-gradient-to-r from-maroon-900/90 via-maroon-800/80 to-maroon-900/90 p-8 sm:p-12 text-center shadow-maroon-deep">
+      <!-- Thoughtful Philosophy Card -->
+      <div class="relative rounded-3xl border border-festive-pine/40 bg-festive-pine p-8 sm:p-12 text-center shadow-lg text-white">
         
         <div class="max-w-2xl mx-auto space-y-4">
-          <div class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold-400/20 border border-gold-400/40 text-gold-300 mb-1">
-            <Heart class="h-5 w-5 fill-gold-400/40 text-gold-300" />
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 border border-white/20 text-festive-sand mb-1">
+            <Heart class="h-5 w-5 fill-festive-sand text-festive-sand" />
           </div>
 
-          <p class="font-serif text-lg sm:text-2xl text-cream-50 leading-relaxed italic">
+          <p class="font-serif text-lg sm:text-2xl text-festive-sand leading-relaxed italic">
             “{{ eventData.giftExchange.philosophy }}”
           </p>
 
-          <p class="font-sans text-xs sm:text-sm font-medium text-gold-300 mt-2">
+          <p class="font-sans text-xs sm:text-sm font-medium text-white/90 mt-2 font-serif">
             {{ eventData.giftExchange.callToAction }}
           </p>
 
@@ -133,9 +142,9 @@ const modalOpen = ref(false)
             <button
               @click="modalOpen = true"
               type="button"
-              class="inline-flex items-center gap-2 rounded-full border border-gold-400 bg-gold-400 px-6 py-3 text-xs font-bold uppercase tracking-wider text-maroon-950 shadow-gold-glow hover:bg-gold-300 transition duration-300 hover:scale-105"
+              class="inline-flex items-center gap-2 rounded-full bg-festive-sand px-6 py-3 text-xs font-serif font-bold uppercase tracking-wider text-festive-espresso shadow-md hover:bg-[#dfc4a5] transition duration-300 hover:scale-105"
             >
-              <Lightbulb class="h-4 w-4" />
+              <Lightbulb class="h-4 w-4 text-festive-crimson" />
               <span>Need Gift Ideas? View Inspiration 💡</span>
             </button>
           </div>
