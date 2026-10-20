@@ -15,7 +15,7 @@ function toggleSnow() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-maroon-950 text-cream-100 font-sans selection:bg-gold-400 selection:text-maroon-950 relative overflow-x-hidden">
+  <div class="min-h-screen bg-festive-cream text-festive-espresso font-sans selection:bg-festive-crimson selection:text-white relative overflow-x-hidden">
     <!-- Gentle snowfall canvas overlay -->
     <SnowCanvas :enabled="snowEnabled" />
 

@@ -39,9 +39,9 @@ function animate() {
   for (const f of flakes) {
     ctx.beginPath()
     ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2)
-    ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`
-    ctx.shadowBlur = 4
-    ctx.shadowColor = 'rgba(255, 255, 255, 0.4)'
+    ctx.fillStyle = `rgba(180, 150, 120, ${f.opacity * 0.45})`
+    ctx.shadowBlur = 3
+    ctx.shadowColor = 'rgba(212, 175, 55, 0.3)'
     ctx.fill()
 
     f.y += f.speed

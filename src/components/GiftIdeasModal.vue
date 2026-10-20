@@ -24,31 +24,31 @@ const emit = defineEmits(['close'])
     >
       <div
         v-if="isOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-maroon-950/80 backdrop-blur-md"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-festive-espresso/80 backdrop-blur-md"
         @click.self="emit('close')"
       >
         <div
-          class="relative w-full max-w-lg rounded-3xl border border-gold-400/40 bg-maroon-900 p-6 sm:p-8 text-cream-100 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+          class="relative w-full max-w-lg rounded-3xl border border-festive-sand bg-white p-6 sm:p-8 text-festive-espresso shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
         >
           <!-- Corner Close Button -->
           <button
             @click="emit('close')"
             type="button"
-            class="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-maroon-950/70 text-cream-300 hover:text-white border border-gold-400/20"
+            class="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-festive-cream text-festive-espresso hover:text-festive-crimson border border-festive-sand"
           >
             <X class="h-4 w-4" />
           </button>
 
           <!-- Modal Header -->
-          <div class="flex items-center gap-2 text-gold-400 text-xs font-bold uppercase tracking-wider mb-2">
-            <Lightbulb class="h-4 w-4 text-gold-400" />
+          <div class="flex items-center gap-2 text-festive-crimson text-xs font-serif font-bold uppercase tracking-wider mb-2">
+            <Lightbulb class="h-4 w-4 text-festive-crimson" />
             <span>DB13 Christmas Gift Inspiration</span>
           </div>
 
-          <h3 class="text-xl sm:text-2xl font-serif font-bold text-cream-50">
+          <h3 class="text-xl sm:text-2xl font-serif font-bold text-festive-espresso">
             Unisex Gift Ideas (Under Rp 100,000)
           </h3>
-          <p class="text-xs text-cream-300/80 mt-1 mb-6">
+          <p class="text-xs text-festive-espresso/70 mt-1 mb-6 font-serif">
             Following the rules: ~Rp 100,000 in value, universally enjoyable, and non-perishable.
           </p>
 
@@ -57,42 +57,42 @@ const emit = defineEmits(['close'])
             <div
               v-for="(group, idx) in eventData.giftExchange.ideaSuggestions"
               :key="idx"
-              class="rounded-2xl border border-gold-400/20 bg-maroon-950/60 p-4"
+              class="rounded-2xl border border-festive-sand bg-festive-cream p-4"
             >
-              <h4 class="text-xs font-bold uppercase tracking-wider text-gold-300 mb-3 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-gold-400"></span>
+              <h4 class="text-xs font-serif font-bold uppercase tracking-wider text-festive-crimson mb-3 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-festive-crimson"></span>
                 {{ group.category }}
               </h4>
               <ul class="space-y-2">
                 <li
                   v-for="(item, itemIdx) in group.items"
                   :key="itemIdx"
-                  class="flex items-start gap-2 text-xs text-cream-200/90"
+                  class="flex items-start gap-2 text-xs text-festive-espresso/85"
                 >
-                  <CheckCircle2 class="h-3.5 w-3.5 text-gold-400 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 class="h-3.5 w-3.5 text-festive-crimson mt-0.5 flex-shrink-0" />
                   <span>{{ item }}</span>
                 </li>
               </ul>
             </div>
 
             <!-- Brown Paper Wrapping Tip -->
-            <div class="rounded-2xl border border-dashed border-gold-400/40 bg-gold-400/10 p-4 text-center">
+            <div class="rounded-2xl border border-dashed border-festive-sand bg-festive-sand/30 p-4 text-center">
               <span class="text-lg">🎀</span>
-              <p class="text-xs font-semibold text-gold-300 mt-1">
+              <p class="text-xs font-serif font-semibold text-festive-crimson mt-1">
                 Don't Forget the Wrapping Rule!
               </p>
-              <p class="text-[11px] text-cream-200/80 mt-0.5">
+              <p class="text-[11px] text-festive-espresso/80 mt-0.5 font-serif">
                 Wrap your present in <strong>plain brown craft paper</strong> with festive ribbon or rustic twine for cozy holiday charm.
               </p>
             </div>
           </div>
 
           <!-- Bottom Close Button -->
-          <div class="mt-6 pt-4 border-t border-maroon-800 flex justify-end">
+          <div class="mt-6 pt-4 border-t border-festive-sand flex justify-end">
             <button
               @click="emit('close')"
               type="button"
-              class="rounded-xl bg-gold-400 px-5 py-2 text-xs font-bold uppercase tracking-wider text-maroon-950 hover:bg-gold-300 transition"
+              class="rounded-xl bg-festive-crimson px-5 py-2 text-xs font-serif font-bold uppercase tracking-wider text-white hover:bg-[#851621] transition"
             >
               Got It & Ready to Wrap! ✨
             </button>

@@ -19,43 +19,48 @@ function closeMobileMenu() {
 </script>
 
 <template>
-  <header class="sticky top-0 z-30 w-full border-b border-gold-400/20 bg-maroon-950/85 backdrop-blur-md transition-all duration-300">
+  <header class="sticky top-0 z-30 w-full border-b border-festive-sand/80 bg-festive-cream/90 backdrop-blur-md transition-all duration-300">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
       
-      <!-- Brand Logo -->
-      <a href="#invitation" class="group flex items-center gap-2.5">
-        <div class="flex h-9 w-9 items-center justify-center rounded-lg border border-gold-400/50 bg-gradient-to-br from-maroon-800 to-maroon-900 shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:border-gold-300">
-          <span class="font-serif font-bold text-xs tracking-wider text-gold-300">DB13</span>
+      <!-- Brand Logo (Editorial Monogram) -->
+      <a href="#invitation" class="group flex items-center gap-3">
+        <div class="flex h-9 w-9 items-center justify-center rounded-lg border border-festive-crimson/30 bg-festive-crimson text-white shadow-sm transition-transform duration-300 group-hover:scale-105">
+          <span class="font-serif font-bold text-xs tracking-wider">DB13</span>
         </div>
         <div class="flex flex-col">
-          <span class="font-serif text-sm font-semibold tracking-wider text-cream-100 group-hover:text-gold-300 transition-colors">
-            DATE BEKASI 13
-          </span>
-          <span class="font-sans text-[10px] tracking-widest text-gold-400/80 uppercase">
+          <div class="flex items-center gap-1.5">
+            <span class="font-serif text-sm font-semibold tracking-wider text-festive-espresso group-hover:text-festive-crimson transition-colors">
+              DATE BEKASI 13
+            </span>
+            <img src="/images/figma/christmas-bell.svg" alt="Bell" class="w-3.5 h-3.5 inline-block opacity-80" />
+          </div>
+          <span class="font-sans text-[10px] tracking-widest text-festive-crimson/80 uppercase font-medium">
             Christmas Getaway
           </span>
         </div>
       </a>
 
-      <!-- Desktop Nav Links -->
-      <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-widest text-cream-200">
+      <!-- Desktop Nav Links (Editorial Style with separators) -->
+      <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-widest text-festive-espresso/80 font-serif">
         <a
           href="#invitation"
-          class="transition-colors hover:text-gold-300 font-medium py-1"
+          class="transition-colors hover:text-festive-crimson font-medium py-1"
         >
           Invitation
         </a>
+        <span class="text-festive-sand">|</span>
         <a
           href="#event-details"
-          class="transition-colors hover:text-gold-300 font-medium py-1"
+          class="transition-colors hover:text-festive-crimson font-medium py-1"
         >
-          Schedule & Dress Code
+          Itinerary
         </a>
+        <span class="text-festive-sand">|</span>
         <a
           href="#gift-exchange"
-          class="transition-colors hover:text-gold-300 font-medium py-1"
+          class="transition-colors hover:text-festive-crimson font-medium py-1"
         >
-          Gift Exchange
+          Secret Santa
         </a>
       </nav>
 
@@ -65,18 +70,17 @@ function closeMobileMenu() {
         <button
           @click="emit('toggle-snow')"
           type="button"
-          class="flex h-9 w-9 items-center justify-center rounded-full border border-gold-400/30 bg-maroon-900/60 text-gold-300 transition hover:bg-maroon-800 hover:border-gold-400"
+          class="flex h-9 w-9 items-center justify-center rounded-full border border-festive-sand bg-white/80 text-festive-espresso shadow-sm transition hover:bg-festive-sand hover:text-festive-crimson"
           :title="snowEnabled ? 'Turn Off Snow Effect' : 'Turn On Snow Effect'"
         >
-          <Snowflake class="h-4 w-4" :class="{ 'text-gold-400 animate-spin-slow': snowEnabled, 'text-cream-300/40': !snowEnabled }" />
+          <Snowflake class="h-4 w-4" :class="{ 'text-festive-crimson animate-spin-slow': snowEnabled, 'text-festive-espresso/40': !snowEnabled }" />
         </button>
-
 
         <!-- Mobile Menu Toggle Button -->
         <button
           @click="mobileMenuOpen = !mobileMenuOpen"
           type="button"
-          class="flex md:hidden h-9 w-9 items-center justify-center rounded-full border border-gold-400/30 bg-maroon-900/60 text-cream-100"
+          class="flex md:hidden h-9 w-9 items-center justify-center rounded-full border border-festive-sand bg-white/80 text-festive-espresso"
           aria-label="Toggle navigation menu"
         >
           <Menu v-if="!mobileMenuOpen" class="h-4 w-4" />
@@ -96,35 +100,31 @@ function closeMobileMenu() {
     >
       <div
         v-if="mobileMenuOpen"
-        class="md:hidden border-t border-gold-400/20 bg-maroon-950/95 px-5 py-4 backdrop-blur-xl"
+        class="md:hidden border-t border-festive-sand bg-festive-cream/95 px-5 py-4 backdrop-blur-xl shadow-lg"
       >
-        <div class="flex flex-col gap-3 text-sm tracking-wider uppercase text-cream-100">
+        <nav class="flex flex-col gap-3 text-xs uppercase tracking-widest text-festive-espresso font-serif">
           <a
             href="#invitation"
             @click="closeMobileMenu"
-            class="py-2 border-b border-maroon-900/80 hover:text-gold-300 flex items-center justify-between"
+            class="py-2 transition hover:text-festive-crimson"
           >
-            <span>The Invitation</span>
-            <span class="text-xs text-gold-400">01</span>
+            Invitation
           </a>
           <a
             href="#event-details"
             @click="closeMobileMenu"
-            class="py-2 border-b border-maroon-900/80 hover:text-gold-300 flex items-center justify-between"
+            class="py-2 transition hover:text-festive-crimson"
           >
-            <span>Schedule & Dress Code</span>
-            <span class="text-xs text-gold-400">02</span>
+            Schedule & Dress Code
           </a>
           <a
             href="#gift-exchange"
             @click="closeMobileMenu"
-            class="py-2 hover:text-gold-300 flex items-center justify-between"
+            class="py-2 transition hover:text-festive-crimson"
           >
-            <span>Gift Exchange Guide</span>
-            <span class="text-xs text-gold-400">03</span>
+            Gift Exchange
           </a>
-
-        </div>
+        </nav>
       </div>
     </transition>
   </header>

@@ -7,6 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
+        festive: {
+          cream: '#FAF4EB',
+          sand: '#E8D3B9',
+          oatmeal: '#F4ECE1',
+          espresso: '#231815',
+          crimson: '#9B1B28',
+          pine: '#1B4332',
+          gold: '#D4AF37',
+          kraft: '#A77B56',
+        },
         maroon: {
           950: '#1A0508',
           900: '#2E0A0F',
