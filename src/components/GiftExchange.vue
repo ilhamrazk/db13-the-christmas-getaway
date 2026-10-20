@@ -22,9 +22,6 @@ const modalOpen = ref(false)
           />
         </div>
 
-        <span class="inline-block text-xs font-serif font-bold uppercase tracking-[0.25em] text-festive-crimson mb-2">
-          Secret Santa Tradition
-        </span>
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-festive-espresso leading-tight">
           🎁 {{ eventData.giftExchange.title }}
         </h2>
@@ -83,7 +80,7 @@ const modalOpen = ref(false)
               Brown paper wrapping
             </div>
             <p class="text-xs text-festive-espresso/80 leading-relaxed font-serif">
-              Wrap your present using plain <strong>brown craft paper</strong>. A rustic vintage aesthetic that looks cozy and unified under the Christmas tree.
+              Wrap your present using plain <strong>brown craft paper</strong>.
             </p>
           </div>
 
