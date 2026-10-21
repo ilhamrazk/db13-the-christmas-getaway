@@ -7,55 +7,61 @@ export default {
   theme: {
     extend: {
       colors: {
-        festive: {
-          cream: '#FAF4EB',
-          sand: '#E8D3B9',
-          oatmeal: '#F4ECE1',
-          espresso: '#231815',
-          crimson: '#9B1B28',
-          pine: '#1B4332',
-          gold: '#D4AF37',
-          kraft: '#A77B56',
-        },
-        maroon: {
-          950: '#1A0508',
-          900: '#2E0A0F',
-          800: '#4A0E17',
-          700: '#6B131D',
-          600: '#881B27',
-          500: '#A42231',
-        },
+        // "Holiday Express" palette: a vintage travel poster for a mountain getaway
         pine: {
-          900: '#0C1E16',
-          800: '#16382B',
-          700: '#1E4D3B',
-          600: '#26624B',
-          500: '#2D7257',
-          300: '#68B696',
+          950: '#0B241D',
+          900: '#12352B',
+          800: '#1A4537',
+          700: '#245847',
+          600: '#336E5A',
         },
-        gold: {
-          500: '#D4AF37',
-          400: '#E5B869',
-          300: '#F3C77C',
-          200: '#F9E2B5',
-          100: '#FDF6E9',
+        cherry: {
+          800: '#7E0C20',
+          700: '#9A0F27',
+          600: '#B3122E',
+          500: '#C9304A',
         },
-        cream: {
-          50: '#FFFDF9',
-          100: '#FAF4EB',
-          200: '#F3EBDD',
-          300: '#E5DAC8',
-        }
+        ticket: {
+          50: '#FBF6EC',
+          100: '#F2E6CF',
+          200: '#E6D4B2',
+          300: '#D2BB91',
+        },
+        brass: {
+          500: '#C38D2C',
+          400: '#D9A441',
+          300: '#E9C277',
+        },
+        frost: {
+          300: '#CFE3E8',
+          400: '#A9C9CF',
+          500: '#7FA8AF',
+        },
+        kraft: {
+          400: '#C79A6B',
+          500: '#B98B5E',
+          600: '#9C7148',
+        },
+        ink: {
+          900: '#241A14',
+          700: '#4A3A2F',
+          500: '#6E5A4B',
+        },
       },
       fontFamily: {
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
-        script: ['"Great Vibes"', 'cursive'],
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        display: ['"Big Shoulders Display"', 'Impact', 'sans-serif'],
+        serif: ['"Newsreader"', 'Georgia', 'serif'],
+        sans: ['"Newsreader"', 'Georgia', 'serif'],
       },
-      boxShadow: {
-        'gold-glow': '0 0 25px rgba(229, 184, 105, 0.25)',
-        'maroon-deep': '0 15px 35px rgba(26, 5, 8, 0.6)',
-      }
+      keyframes: {
+        twinkle: {
+          '0%, 100%': { opacity: '0.35' },
+          '50%': { opacity: '1' },
+        },
+      },
+      animation: {
+        twinkle: 'twinkle 3.2s ease-in-out infinite',
+      },
     },
   },
   plugins: [],
