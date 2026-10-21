@@ -2,39 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom luxury scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #1A0508;
-}
-::-webkit-scrollbar-thumb {
-  background: #4A0E17;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #E5B869;
+@layer base {
+  :root {
+    --page: theme('colors.pine.900');
+  }
+
+  html {
+    background: theme('colors.pine.900');
+    scroll-padding-top: 5rem;
+  }
+
+  ::selection {
+    background: theme('colors.brass.400');
+    color: theme('colors.ink.900');
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.brass.400');
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: theme('colors.pine.950'); }
+  ::-webkit-scrollbar-thumb { background: theme('colors.pine.700'); border-radius: 5px; }
+  ::-webkit-scrollbar-thumb:hover { background: theme('colors.brass.500'); }
 }
 
-/* Gold double line luxury border utility */
-.border-gold-double {
-  border: 1px solid rgba(229, 184, 105, 0.4);
-  outline: 1px solid rgba(229, 184, 105, 0.2);
-  outline-offset: 4px;
+@layer components {
+  /* Ticket perforation: real punched holes (CSS masks) + a dashed tear line on the stub.
+     Each piece is masked in two halves so the two holes can coexist without mask-composite. */
+  /* Mobile: stub sits below the main ticket, holes on the left and right of the tear line */
+  .ticket-main {
+    -webkit-mask: radial-gradient(circle at 0 100%, transparent 13px, #000 13.5px) left / 51% 100% no-repeat,
+                  radial-gradient(circle at 100% 100%, transparent 13px, #000 13.5px) right / 51% 100% no-repeat;
+            mask: radial-gradient(circle at 0 100%, transparent 13px, #000 13.5px) left / 51% 100% no-repeat,
+                  radial-gradient(circle at 100% 100%, transparent 13px, #000 13.5px) right / 51% 100% no-repeat;
+  }
+  .ticket-stub {
+    border-top: 2px dashed theme('colors.ticket.300');
+    -webkit-mask: radial-gradient(circle at 0 0, transparent 13px, #000 13.5px) left / 51% 100% no-repeat,
+                  radial-gradient(circle at 100% 0, transparent 13px, #000 13.5px) right / 51% 100% no-repeat;
+            mask: radial-gradient(circle at 0 0, transparent 13px, #000 13.5px) left / 51% 100% no-repeat,
+                  radial-gradient(circle at 100% 0, transparent 13px, #000 13.5px) right / 51% 100% no-repeat;
+  }
+
+  /* Desktop: stub sits on the right, holes at the top and bottom of the tear line */
+  @media (min-width: 768px) {
+    .ticket-main {
+      -webkit-mask: radial-gradient(circle at 100% 0, transparent 13px, #000 13.5px) top / 100% 51% no-repeat,
+                    radial-gradient(circle at 100% 100%, transparent 13px, #000 13.5px) bottom / 100% 51% no-repeat;
+              mask: radial-gradient(circle at 100% 0, transparent 13px, #000 13.5px) top / 100% 51% no-repeat,
+                    radial-gradient(circle at 100% 100%, transparent 13px, #000 13.5px) bottom / 100% 51% no-repeat;
+    }
+    .ticket-stub {
+      border-top: 0;
+      border-left: 2px dashed theme('colors.ticket.300');
+      -webkit-mask: radial-gradient(circle at 0 0, transparent 13px, #000 13.5px) top / 100% 51% no-repeat,
+                    radial-gradient(circle at 0 100%, transparent 13px, #000 13.5px) bottom / 100% 51% no-repeat;
+              mask: radial-gradient(circle at 0 0, transparent 13px, #000 13.5px) top / 100% 51% no-repeat,
+                    radial-gradient(circle at 0 100%, transparent 13px, #000 13.5px) bottom / 100% 51% no-repeat;
+    }
+  }
+
+  /* Kraft paper: soft fibres over the base brown */
+  .kraft-paper {
+    background-color: theme('colors.kraft.500');
+    background-image:
+      repeating-linear-gradient(97deg, rgba(255, 255, 255, 0.035) 0 2px, transparent 2px 7px),
+      repeating-linear-gradient(-8deg, rgba(60, 35, 15, 0.05) 0 1px, transparent 1px 5px),
+      radial-gradient(ellipse at 20% 0%, rgba(255, 240, 210, 0.25), transparent 60%);
+  }
+
+  /* Gift tag silhouette: clipped corners on the hanging side */
+  .gift-tag {
+    clip-path: polygon(14% 0, 86% 0, 100% 9%, 100% 100%, 0 100%, 0 9%);
+  }
 }
 
-/* Subtle gold shimmer animation */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.text-gold-shimmer {
-  background: linear-gradient(90deg, #D4AF37 0%, #FFFDF9 50%, #D4AF37 100%);
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: shimmer 6s ease-in-out infinite;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

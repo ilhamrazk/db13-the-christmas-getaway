@@ -1,342 +1,218 @@
 <script setup>
-import { ref } from 'vue'
-import { Calendar, Clock, MapPin, ExternalLink, Copy, Check, Sparkles, Navigation, Heart, Glasses, Luggage } from 'lucide-vue-next'
+import { ref, computed, watch } from 'vue'
+import { Check } from 'lucide-vue-next'
 import confetti from 'canvas-confetti'
 import DressCodeCard from './DressCodeCard.vue'
 import { eventData } from '../data/eventData.js'
 
-const copied = ref(false)
-const packedAccessories = ref(new Set())
+const { schedule, dressCode, travelTips } = eventData
 
-function copyAddress() {
-  navigator.clipboard.writeText(eventData.schedule.venue.name + ", " + eventData.schedule.venue.city)
-  copied.value = true
-  setTimeout(() => { copied.value = false }, 2500)
-}
+const route = [
+  {
+    when: '06:30 WIB',
+    day: 'Saturday, 7 November',
+    title: `Gather at ${schedule.meetingPoint.name}`,
+    note: `${schedule.meetingPoint.city}. ${schedule.meetingPoint.note}.`
+  },
+  {
+    when: 'After roll call',
+    day: 'Saturday, 7 November',
+    title: 'Convoy up to Ciawi',
+    note: 'We drive together, so nobody gets lost on the way up.'
+  },
+  {
+    when: '2 days, 1 night',
+    day: 'Saturday to Sunday',
+    title: schedule.venue.name,
+    note: schedule.venue.addressNote
+  },
+  {
+    when: '15:00 WIB',
+    day: 'Sunday, 8 November',
+    title: 'The getaway wraps up',
+    note: 'Head home with new stories and a lighter backpack.'
+  }
+]
 
-function toggleAccessory(id) {
-  if (packedAccessories.value.has(id)) {
-    packedAccessories.value.delete(id)
-  } else {
-    packedAccessories.value.add(id)
-    if (packedAccessories.value.size === eventData.dressCode.accessories.options.length) {
-      confetti({
-        particleCount: 80,
-        spread: 60,
-        origin: { y: 0.7 },
-        colors: ['#E5B869', '#6B131D', '#16382B', '#FFFFFF']
-      })
-    }
+// Packing list: the two travel essentials, plus any festive accessory
+const essentials = [
+  { id: travelTips[0].id, icon: travelTips[0].emoji, label: 'Sunglasses', desc: travelTips[0].text },
+  { id: travelTips[1].id, icon: travelTips[1].emoji, label: 'A backpack or small bag', desc: travelTips[1].text }
+]
+const accessories = dressCode.accessories.options
+
+const STORAGE_KEY = 'db13-packing-list'
+
+function loadPacked() {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'))
+  } catch {
+    return new Set()
   }
 }
 
-function openGoogleCalendar() {
-  const title = encodeURIComponent("DATE BEKASI 13: THE CHRISTMAS GETAWAY")
-  const details = encodeURIComponent(
-    "Anniversary & Christmas Celebration Date Bekasi 13!\n" +
-    "Gathering Time: 6:30 AM at McDonald's Grand Kota Bintang.\n" +
-    "Destination: Villa Nirmala Hills, Ciawi.\n" +
-    "Dresscode Day 1: Casual & Colorful (White, Brown, Red, Green).\n" +
-    "Dresscode Day 2: Casual Maroon.\n" +
-    "Bring sunglasses, pack light (backpack only), and bring a Rp 100k unisex gift wrapped in brown paper!"
-  )
-  const location = encodeURIComponent("McDonald's Grand Kota Bintang / Villa Nirmala Hills, Ciawi")
-  const start = "20261106T233000Z"
-  const end = "20261108T080000Z"
-  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`
-  window.open(url, '_blank')
+const packed = ref(loadPacked())
+const essentialsPacked = computed(() => essentials.every(item => packed.value.has(item.id)))
+const hasAccessory = computed(() => accessories.some(item => packed.value.has(item.id)))
+const allSet = computed(() => essentialsPacked.value && hasAccessory.value)
+
+function toggle(id) {
+  const next = new Set(packed.value)
+  next.has(id) ? next.delete(id) : next.add(id)
+  packed.value = next
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...next]))
+  } catch {
+    // Private mode or blocked storage: the list still works for this visit
+  }
 }
+
+watch(allSet, (ready, wasReady) => {
+  if (!ready || wasReady) return
+  confetti({
+    particleCount: 90,
+    spread: 70,
+    origin: { y: 0.7 },
+    colors: ['#D9A441', '#B3122E', '#245847', '#FBF6EC'],
+    disableForReducedMotion: true
+  })
+})
 </script>
 
 <template>
-  <section id="event-details" class="py-16 px-4 sm:px-6">
-    <div class="max-w-5xl mx-auto space-y-16">
-      
-      <!-- Section Header -->
-      <div class="text-center max-w-2xl mx-auto">
-        <div class="flex items-center justify-center gap-2 mb-2">
-          <img src="/images/figma/calendar-icon.svg" alt="Calendar" class="w-5 h-5" />
-          <span class="inline-block text-xs font-bold uppercase tracking-[0.25em] text-festive-crimson font-serif">
-            Itinerary & Logistics
-          </span>
-          <img src="/images/figma/christmas-star.svg" alt="Star" class="w-4 h-4" />
-        </div>
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-festive-espresso">
-          SAVE THE DATE! 🎄
-        </h2>
-        <div class="w-16 h-0.5 bg-festive-sand mx-auto mt-4 mb-3"></div>
-        <p class="text-sm sm:text-base text-festive-espresso/80 font-light font-serif">
-          Mark your calendars and get ready for an unforgettable two-day mountain retreat!
+  <!-- The route -->
+  <section id="route" class="px-6 pb-24 pt-6 sm:pb-28">
+    <div class="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <div>
+        <h2 class="font-display text-6xl font-black uppercase leading-[0.9] text-ticket-50 sm:text-7xl">The route</h2>
+        <p class="mt-5 max-w-md font-serif text-lg leading-relaxed text-ticket-100/85">
+          One meeting point, one convoy, one villa in the hills of Ciawi. Here is how the weekend runs.
+        </p>
+
+        <aside class="mt-10 rounded-lg border border-brass-400/40 p-6">
+          <p class="font-display text-2xl font-extrabold tracking-wide text-brass-300">A little reminder ❤️</p>
+          <p class="mt-2 font-serif text-base leading-relaxed text-ticket-100/90">
+            {{ schedule.timeReminder }}
+          </p>
+        </aside>
+      </div>
+
+      <ol class="relative border-l-2 border-dashed border-ticket-100/25 pl-8 sm:pl-10">
+        <li v-for="(stop, i) in route" :key="i" class="relative pb-10 last:pb-0">
+          <span
+            class="absolute -left-[calc(2rem+9px)] top-1.5 flex h-4 w-4 items-center justify-center rounded-full ring-4 ring-pine-900 sm:-left-[calc(2.5rem+9px)]"
+            :class="i === 0 || i === route.length - 1 ? 'bg-brass-400' : 'bg-ticket-100'"
+            aria-hidden="true"
+          ></span>
+          <p class="font-display text-3xl font-black leading-none text-brass-300">{{ stop.when }}</p>
+          <p class="mt-1 font-serif text-sm italic text-frost-300">{{ stop.day }}</p>
+          <h3 class="mt-3 font-display text-2xl font-bold leading-tight text-ticket-50">{{ stop.title }}</h3>
+          <p class="mt-1 max-w-prose font-serif text-base leading-relaxed text-ticket-100/80">{{ stop.note }}</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Dress code -->
+  <section id="dress-code" class="bg-cherry-700 px-4 py-24 sm:px-6 sm:py-28" style="--page: #9A0F27">
+    <div class="mx-auto max-w-5xl">
+      <div class="max-w-2xl px-2">
+        <h2 class="font-display text-6xl font-black uppercase leading-[0.9] text-ticket-50 sm:text-7xl">Dress code</h2>
+        <p class="mt-5 font-serif text-lg leading-relaxed text-ticket-100/90">
+          {{ dressCode.subtitle }} Tap a photo to see the full lookbook.
         </p>
       </div>
 
-      <!-- Schedule & Venue Information Card (Paper / Cream Card layout) -->
-      <div class="rounded-3xl border border-festive-sand bg-white text-festive-espresso p-6 sm:p-10 shadow-lg relative overflow-hidden">
-        
-        <!-- Subtle festive corner glow -->
-        <div class="absolute -top-10 -right-10 w-32 h-32 bg-festive-sand/30 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="mt-12 grid gap-8 md:grid-cols-2">
+        <DressCodeCard
+          v-for="day in dressCode.days"
+          :key="day.dayNumber"
+          :day="day"
+        />
+      </div>
+    </div>
+  </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- Left Column: Dates, Gathering & Destination -->
-          <div class="lg:col-span-7 space-y-6">
-            
-            <div class="space-y-4">
-              <!-- Date -->
-              <div class="flex items-start gap-4">
-                <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-festive-crimson text-white shadow-md">
-                  <Calendar class="h-5 w-5" />
-                </div>
-                <div>
-                  <span class="block text-xs font-bold uppercase tracking-wider text-festive-crimson">Date</span>
-                  <span class="text-lg sm:text-xl font-serif font-bold text-festive-espresso">
-                    {{ eventData.schedule.displayDate }}
-                  </span>
-                  <span class="block text-xs text-festive-espresso/70 mt-0.5">2 Days 1 Night Mountain Getaway</span>
-                </div>
-              </div>
+  <!-- Packing list -->
+  <section id="packing" class="bg-pine-950 px-4 py-24 sm:px-6 sm:py-28" style="--page: #0B241D">
+    <div class="mx-auto grid max-w-5xl items-start gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <div class="px-2">
+        <h2 class="font-display text-6xl font-black uppercase leading-[0.9] text-ticket-50 sm:text-7xl">Packing list</h2>
+        <p class="mt-5 font-serif text-lg leading-relaxed text-ticket-100/85">
+          {{ dressCode.accessories.text }}
+        </p>
+        <p class="mt-4 font-serif text-base italic text-frost-300">
+          Tick things off as you pack. Your list is saved on this device.
+        </p>
+      </div>
 
-              <!-- Gathering Time & Meeting Point -->
-              <div class="flex items-start gap-4">
-                <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-festive-crimson text-white shadow-md">
-                  <Clock class="h-5 w-5" />
-                </div>
-                <div>
-                  <span class="block text-xs font-bold uppercase tracking-wider text-festive-crimson">Gathering & Meeting Point</span>
-                  <span class="text-lg sm:text-xl font-serif font-bold text-festive-espresso">
-                    {{ eventData.schedule.gatheringTime }} WIB
-                  </span>
-                  <div class="flex items-center gap-1.5 text-xs font-semibold text-festive-crimson mt-0.5">
-                    <MapPin class="h-3.5 w-3.5" />
-                    <span>{{ eventData.schedule.meetingPoint.name }}</span>
-                  </div>
-                  <span class="block text-[11px] text-festive-espresso/70 mt-0.5">{{ eventData.schedule.meetingPoint.note }}</span>
-                </div>
-              </div>
+      <!-- Luggage tag -->
+      <div class="relative rounded-xl bg-ticket-100 p-6 pt-12 text-ink-900 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.7)] sm:p-9 sm:pt-14">
+        <span class="absolute left-1/2 top-4 h-5 w-5 -translate-x-1/2 rounded-full bg-pine-950 ring-4 ring-brass-400/70" aria-hidden="true"></span>
 
-              <!-- Destination Venue -->
-              <div class="flex items-start gap-4">
-                <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-festive-crimson text-white shadow-md">
-                  <Navigation class="h-5 w-5" />
-                </div>
-                <div>
-                  <span class="block text-xs font-bold uppercase tracking-wider text-festive-crimson">Destination</span>
-                  <span class="text-lg sm:text-xl font-serif font-bold text-festive-espresso">
-                    {{ eventData.schedule.venue.name }}
-                  </span>
-                  <span class="block text-xs text-festive-espresso/80 mt-0.5">Ciawi, Bogor, Jawa Barat</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Revised Punctuality Reminder -->
-            <div class="rounded-2xl border border-festive-sand bg-festive-cream p-4">
-              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-festive-crimson mb-1 font-serif">
-                <Heart class="h-3.5 w-3.5 text-festive-crimson fill-festive-crimson" />
-                <span>{{ eventData.schedule.timeReminderHeadline }}</span>
-              </div>
-              <p class="text-xs sm:text-sm text-festive-espresso/80 leading-relaxed italic font-serif">
-                “{{ eventData.schedule.timeReminder }}”
-              </p>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex flex-wrap items-center gap-3 pt-2">
-              <a
-                :href="eventData.schedule.venue.mapsUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 rounded-xl bg-festive-crimson px-5 py-2.5 text-xs font-serif font-bold uppercase tracking-wider text-white shadow-md transition hover:bg-[#851621] hover:shadow-lg"
-              >
-                <Navigation class="h-3.5 w-3.5" />
-                <span>Open Google Maps</span>
-                <ExternalLink class="h-3 w-3" />
-              </a>
-
-              <button
-                @click="openGoogleCalendar"
-                type="button"
-                class="inline-flex items-center gap-2 rounded-xl border border-festive-sand bg-festive-cream px-4 py-2.5 text-xs font-serif font-semibold text-festive-espresso transition hover:bg-festive-sand"
-              >
-                <Calendar class="h-3.5 w-3.5 text-festive-crimson" />
-                <span>Save to Google Calendar</span>
-              </button>
-
-              <button
-                @click="copyAddress"
-                type="button"
-                class="inline-flex items-center gap-1.5 rounded-xl border border-festive-sand bg-festive-cream px-3.5 py-2.5 text-xs text-festive-espresso transition hover:bg-festive-sand"
-                :title="copied ? 'Copied!' : 'Copy Address'"
-              >
-                <Check v-if="copied" class="h-3.5 w-3.5 text-festive-pine font-bold" />
-                <Copy v-else class="h-3.5 w-3.5 text-festive-crimson" />
-                <span>{{ copied ? 'Copied!' : 'Copy Address' }}</span>
-              </button>
-            </div>
-
-          </div>
-
-          <!-- Right Column: Interactive Map Preview Card -->
-          <div class="lg:col-span-5">
-            <div class="rounded-2xl border border-festive-sand bg-festive-cream p-4 shadow-sm text-festive-espresso flex flex-col justify-between">
-              <div class="flex items-center justify-between pb-3 border-b border-festive-sand mb-3">
-                <span class="text-xs font-serif font-semibold text-festive-crimson flex items-center gap-1.5">
-                  <MapPin class="h-3.5 w-3.5 text-festive-crimson" />
-                  Villa Nirmala Hills
+        <fieldset>
+          <legend class="font-display text-2xl font-extrabold tracking-wide text-cherry-700">Must bring</legend>
+          <ul class="mt-3 divide-y divide-ticket-300">
+            <li v-for="item in essentials" :key="item.id">
+              <label class="flex cursor-pointer items-start gap-4 py-4">
+                <input
+                  type="checkbox"
+                  class="peer sr-only"
+                  :checked="packed.has(item.id)"
+                  @change="toggle(item.id)"
+                />
+                <span
+                  class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md border-2 transition peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-cherry-600"
+                  :class="packed.has(item.id) ? 'border-pine-700 bg-pine-700 text-ticket-50' : 'border-ink-500/40 bg-ticket-50'"
+                  aria-hidden="true"
+                >
+                  <Check v-if="packed.has(item.id)" class="h-4 w-4" />
                 </span>
-                <span class="text-[10px] uppercase tracking-wider bg-festive-pine text-white px-2 py-0.5 rounded-full font-serif font-medium">
-                  Ciawi, Bogor
+                <span class="min-w-0">
+                  <span class="block font-display text-xl font-bold leading-tight" :class="packed.has(item.id) ? 'text-ink-500 line-through decoration-2' : ''">
+                    {{ item.icon }} {{ item.label }}
+                  </span>
+                  <span class="mt-1 block font-serif text-sm leading-relaxed text-ink-700">{{ item.desc }}</span>
                 </span>
-              </div>
+              </label>
+            </li>
+          </ul>
+        </fieldset>
 
-              <!-- Map Interactive Link Frame -->
-              <a
-                :href="eventData.schedule.venue.mapsUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group relative block w-full h-48 rounded-xl overflow-hidden border border-festive-sand bg-white hover:border-festive-crimson transition-all"
+        <fieldset class="mt-6">
+          <legend class="font-display text-2xl font-extrabold tracking-wide text-cherry-700">Something festive</legend>
+          <p class="mt-1 font-serif text-sm italic text-ink-500">Pick at least one.</p>
+          <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+            <li v-for="item in accessories" :key="item.id">
+              <label
+                class="flex h-full cursor-pointer items-center gap-3 rounded-lg border-2 p-3 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-cherry-600"
+                :class="packed.has(item.id) ? 'border-pine-700 bg-pine-700 text-ticket-50' : 'border-ticket-300 bg-ticket-50 hover:border-pine-600'"
               >
-                <div class="absolute inset-0 opacity-40 bg-[radial-gradient(#9B1B28_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                
-                <div class="relative z-10 h-full flex flex-col items-center justify-center p-4 text-center">
-                  <div class="h-12 w-12 rounded-full bg-festive-sand/50 border border-festive-crimson/30 flex items-center justify-center text-festive-crimson mb-2 transition-transform group-hover:scale-110">
-                    <Navigation class="h-6 w-6 text-festive-crimson" />
-                  </div>
-                  <span class="text-xs font-bold font-serif text-festive-espresso group-hover:text-festive-crimson transition-colors">
-                    Click for Directions & Route
-                  </span>
-                  <span class="text-[10px] text-festive-espresso/70 mt-1">
-                    Open directly in Google Maps app
-                  </span>
-                </div>
-              </a>
+                <input
+                  type="checkbox"
+                  class="peer sr-only"
+                  :checked="packed.has(item.id)"
+                  @change="toggle(item.id)"
+                />
+                <span class="text-2xl" aria-hidden="true">{{ item.icon }}</span>
+                <span class="min-w-0 flex-1">
+                  <span class="block font-display text-lg font-bold leading-tight">{{ item.label }}</span>
+                  <span class="block font-serif text-sm" :class="packed.has(item.id) ? 'text-ticket-100/85' : 'text-ink-500'">{{ item.desc }}</span>
+                </span>
+                <Check v-if="packed.has(item.id)" class="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+              </label>
+            </li>
+          </ul>
+        </fieldset>
 
-              <p class="text-[11px] text-cream-300/80 text-center mt-3">
-                Meeting at McDonald's Grand Kota Bintang at 6:30 AM before departure.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
+        <p
+          class="mt-7 rounded-lg px-4 py-3 text-center font-display text-xl font-bold tracking-wide transition-colors"
+          :class="allSet ? 'bg-cherry-700 text-ticket-50' : 'bg-ticket-200 text-ink-700'"
+          aria-live="polite"
+        >
+          {{ allSet ? 'All packed. See you at 06:30!' : `${packed.size} of ${essentials.length + accessories.length} packed` }}
+        </p>
       </div>
-
-      <!-- Dress Code Section -->
-      <div class="space-y-8">
-        <div class="text-center max-w-xl mx-auto">
-          <span class="text-xs font-serif font-bold uppercase tracking-[0.25em] text-festive-crimson">
-            Outfit Lookbook & Guidelines
-          </span>
-          <h3 class="text-2xl sm:text-4xl font-serif font-bold text-festive-espresso mt-1">
-            👗 DRESS CODE
-          </h3>
-          <p class="text-xs sm:text-sm text-festive-espresso/70 mt-2 font-serif">
-            {{ eventData.dressCode.subtitle }}
-          </p>
-        </div>
-
-        <!-- Dress Code Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          <DressCodeCard
-            v-for="day in eventData.dressCode.days"
-            :key="day.dayNumber"
-            :day="day"
-          />
-        </div>
-      </div>
-
-      <!-- Christmas Accessories Interactive Callout -->
-      <div class="rounded-3xl border border-festive-sand bg-white p-6 sm:p-10 shadow-lg">
-        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8 justify-between">
-          
-          <div class="space-y-3 max-w-xl text-center md:text-left">
-            <div class="inline-flex items-center gap-2 rounded-full border border-festive-crimson/30 bg-festive-sand/30 px-3.5 py-1 text-xs font-serif font-bold text-festive-crimson">
-              <span>{{ eventData.dressCode.accessories.badge }}</span>
-            </div>
-
-            <h4 class="text-xl sm:text-2xl font-serif font-bold text-festive-espresso">
-              {{ eventData.dressCode.accessories.title }}
-            </h4>
-
-            <p class="text-xs sm:text-sm text-festive-espresso/80 leading-relaxed font-serif">
-              {{ eventData.dressCode.accessories.text }}
-            </p>
-          </div>
-
-          <!-- Interactive Accessory Packing Selector -->
-          <div class="w-full md:w-auto flex-shrink-0">
-            <div class="flex items-center justify-center md:justify-end gap-2 mb-3">
-              <span class="text-[11px] font-semibold uppercase tracking-wider text-festive-crimson font-serif">
-                Your Accessories Checklist:
-              </span>
-              <span class="inline-flex items-center gap-1 rounded-full bg-festive-sand/60 px-2 py-0.5 text-[10px] font-medium text-festive-crimson animate-pulse shadow-sm">
-                <span>👆</span>
-                <span>Tap to check</span>
-              </span>
-            </div>
-            <div class="grid grid-cols-2 gap-2.5 sm:gap-3">
-              <button
-                v-for="item in eventData.dressCode.accessories.options"
-                :key="item.id"
-                @click="toggleAccessory(item.id)"
-                type="button"
-                class="group relative flex items-center gap-2 rounded-xl border p-2.5 text-xs transition-all duration-200 text-left shadow-sm cursor-pointer hover:-translate-y-0.5 hover:shadow-md"
-                :class="packedAccessories.has(item.id)
-                  ? 'border-festive-crimson bg-festive-crimson text-white shadow-sm ring-2 ring-festive-crimson/30'
-                  : 'border-festive-sand bg-festive-cream text-festive-espresso hover:border-festive-crimson/60 hover:bg-white'"
-              >
-                <span class="text-lg transition-transform group-hover:scale-110">{{ item.icon }}</span>
-                <div class="flex flex-col flex-1 min-w-0">
-                  <span class="font-medium leading-none truncate">{{ item.label }}</span>
-                  <span class="text-[9px] mt-1 flex items-center gap-1" :class="packedAccessories.has(item.id) ? 'text-white/90 font-semibold' : 'text-festive-espresso/60'">
-                    <span v-if="packedAccessories.has(item.id)">✓ Checked</span>
-                    <span v-else class="text-festive-crimson/80 group-hover:underline">Tap to check</span>
-                  </span>
-                </div>
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- NEW SECTION: Travel Essentials & Packing Tips (Sunglasses & Pack Light from page-2-rev-1.txt) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- Sunglasses Card -->
-        <div class="rounded-3xl border border-gold-400/35 bg-gradient-to-br from-maroon-900/90 to-maroon-950/95 p-6 shadow-xl backdrop-blur-md flex items-start gap-4 transition hover:border-gold-300">
-          <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gold-400/15 border border-gold-400/40 text-2xl">
-            🕶️
-          </div>
-          <div>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-gold-400">Photo Essential</span>
-            <h4 class="text-base sm:text-lg font-serif font-bold text-cream-50 mt-0.5">
-              DON’T FORGET YOUR SUNGLASSES!
-            </h4>
-            <p class="text-xs sm:text-sm text-cream-200/90 leading-relaxed mt-1">
-              Bring your sunglasses for our outdoor photo session and to complete your getaway look! 😎
-            </p>
-          </div>
-        </div>
-
-        <!-- Pack Light Card -->
-        <div class="rounded-3xl border border-gold-400/35 bg-gradient-to-br from-maroon-900/90 to-maroon-950/95 p-6 shadow-xl backdrop-blur-md flex items-start gap-4 transition hover:border-gold-300">
-          <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gold-400/15 border border-gold-400/40 text-2xl">
-            🧳
-          </div>
-          <div>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-gold-400">Luggage Guideline</span>
-            <h4 class="text-base sm:text-lg font-serif font-bold text-cream-50 mt-0.5">
-              PACK LIGHT!
-            </h4>
-            <p class="text-xs sm:text-sm text-cream-200/90 leading-relaxed mt-1">
-              No suitcases, please! Bring a backpack or a small bag with your overnight essentials.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
     </div>
   </section>
 </template>

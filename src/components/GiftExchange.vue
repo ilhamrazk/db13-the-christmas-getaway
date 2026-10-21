@@ -1,157 +1,82 @@
 <script setup>
 import { ref } from 'vue'
-import { Gift, Package, HeartHandshake, Sparkles, Lightbulb, Heart, CircleDollarSign } from 'lucide-vue-next'
+import { Lightbulb } from 'lucide-vue-next'
 import GiftIdeasModal from './GiftIdeasModal.vue'
 import { eventData } from '../data/eventData.js'
 
+const { giftExchange } = eventData
 const modalOpen = ref(false)
+
+// Three gift tags hanging from one length of twine
+const tags = [
+  {
+    label: 'Budget',
+    value: 'Rp 100.000',
+    detail: 'A fair and thoughtful budget for everyone. Please aim as close to Rp 100,000 as possible so each member receives something equally special.',
+    tilt: 'md:-rotate-2'
+  },
+  {
+    label: 'Wrapping',
+    value: 'Brown paper',
+    detail: 'Wrap your present using plain brown craft paper.',
+    tilt: 'md:rotate-1'
+  },
+  {
+    label: 'The gift',
+    value: 'Unisex, no food',
+    detail: 'Must be enjoyable for anyone (brother or sister) and non-perishable. No food items, please!',
+    tilt: 'md:-rotate-1'
+  }
+]
 </script>
 
 <template>
-  <section id="gift-exchange" class="py-16 px-4 sm:px-6 relative">
-    <div class="max-w-4xl mx-auto space-y-12">
-      
-      <!-- Section Header -->
-      <div class="text-center max-w-2xl mx-auto">
-        <!-- Figma Gifts Stack Vector Illustration Centerpiece -->
-        <div class="flex justify-center mb-4">
-          <img
-            src="/images/figma/gifts-stack.svg"
-            alt="Christmas Gifts Stack"
-            class="h-24 sm:h-28 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform"
-          />
-        </div>
-
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-festive-espresso leading-tight">
-          🎁 {{ eventData.giftExchange.title }}
-        </h2>
-        <p class="font-script text-2xl sm:text-3xl text-festive-crimson mt-2">
-          {{ eventData.giftExchange.subtitle }}
-        </p>
-        <p class="text-xs sm:text-sm uppercase tracking-widest text-festive-espresso/70 mt-2 font-serif">
-          {{ eventData.giftExchange.headline }}
+  <section id="gift-exchange" class="kraft-paper relative px-4 py-24 text-ink-900 sm:px-6 sm:py-28" style="--page: #B98B5E">
+    <div class="mx-auto max-w-5xl">
+      <div class="max-w-2xl px-2">
+        <h2 class="font-display text-6xl font-black uppercase leading-[0.9] sm:text-7xl">Christmas gift exchange</h2>
+        <p class="mt-5 font-serif text-lg leading-relaxed text-ink-900/85">
+          {{ giftExchange.subtitle }} {{ giftExchange.headline }}
         </p>
       </div>
 
-      <!-- 3 Arched Rule Cards (Inspired by Reference Arched Cards) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- Rule 1: Budget -->
-        <div class="group relative rounded-t-[90px] rounded-b-3xl border border-festive-sand bg-white p-6 sm:p-7 text-festive-espresso shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between pt-8">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="rounded-full bg-festive-sand/50 px-3 py-1 text-[11px] font-serif font-bold uppercase tracking-wider text-festive-crimson">
-                Rule 01
-              </span>
-              <img src="/images/figma/christmas-ornament.svg" alt="Ornament" class="w-7 h-7" />
+      <!-- Twine + tags -->
+      <div class="relative mt-14">
+        <svg class="absolute inset-x-0 top-0 hidden h-10 w-full md:block" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,6 C160,34 330,34 500,14 C670,-4 840,30 1000,8" fill="none" stroke="#F2E6CF" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M0,6 C160,34 330,34 500,14 C670,-4 840,30 1000,8" fill="none" stroke="#6E4E31" stroke-width="2.5" stroke-dasharray="2 5" stroke-linecap="round" />
+        </svg>
+
+        <ul class="grid gap-10 md:grid-cols-3 md:gap-8 md:pt-6">
+          <li v-for="tag in tags" :key="tag.label" class="relative flex flex-col items-center">
+            <span class="hidden h-10 w-0.5 bg-ticket-100/80 md:block" aria-hidden="true"></span>
+            <div class="gift-tag relative w-full bg-ticket-50 px-6 pb-8 pt-12 shadow-xl transition-transform duration-300" :class="tag.tilt">
+              <span class="absolute left-1/2 top-4 h-4 w-4 -translate-x-1/2 rounded-full bg-kraft-500 ring-[3px] ring-ticket-300" aria-hidden="true"></span>
+              <p class="font-serif text-base italic text-ink-500">{{ tag.label }}</p>
+              <p class="mt-1 font-display text-4xl font-black leading-none text-cherry-700">{{ tag.value }}</p>
+              <p class="mt-4 font-serif text-[15px] leading-relaxed text-ink-700">{{ tag.detail }}</p>
             </div>
-
-            <h3 class="text-sm font-serif font-bold uppercase tracking-wider text-festive-crimson">
-              Gift Budget
-            </h3>
-            <div class="text-2xl sm:text-3xl font-serif font-bold text-festive-espresso my-2">
-              Rp 100,000
-            </div>
-            <p class="text-xs text-festive-espresso/80 leading-relaxed font-serif">
-              A fair and thoughtful budget for everyone. Please aim as close to Rp 100,000 as possible so each member receives something equally special.
-            </p>
-          </div>
-
-          <div class="mt-6 pt-4 border-t border-festive-sand text-[11px] font-semibold text-festive-crimson flex items-center gap-1.5 font-serif">
-            <Sparkles class="h-3 w-3 text-festive-crimson" />
-            <span>Fair & Inclusive</span>
-          </div>
-        </div>
-
-        <!-- Rule 2: Wrapping -->
-        <div class="group relative rounded-t-[90px] rounded-b-3xl border border-festive-sand bg-festive-cream p-6 sm:p-7 text-festive-espresso shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between pt-8">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="rounded-full bg-festive-crimson/15 px-3 py-1 text-[11px] font-serif font-bold uppercase tracking-wider text-festive-crimson border border-festive-crimson/20">
-                Rule 02
-              </span>
-              <img src="/images/figma/christmas-sock.svg" alt="Sock" class="w-7 h-7" />
-            </div>
-
-            <h3 class="text-sm font-serif font-bold uppercase tracking-wider text-festive-crimson">
-              Wrapping Style
-            </h3>
-            <div class="text-xl sm:text-2xl font-serif font-bold text-festive-espresso my-2 leading-snug">
-              Brown paper wrapping
-            </div>
-            <p class="text-xs text-festive-espresso/80 leading-relaxed font-serif">
-              Wrap your present using plain <strong>brown craft paper</strong>.
-            </p>
-          </div>
-
-          <div class="mt-6 pt-4 border-t border-festive-sand text-[11px] font-semibold text-festive-crimson flex items-center gap-1.5 font-serif">
-            <Sparkles class="h-3 w-3 text-festive-crimson" />
-            <span>Rustic Christmas Aesthetic</span>
-          </div>
-        </div>
-
-        <!-- Rule 3: Guidelines -->
-        <div class="group relative rounded-t-[90px] rounded-b-3xl border border-festive-sand bg-white p-6 sm:p-7 text-festive-espresso shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between pt-8">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="rounded-full bg-festive-sand/50 px-3 py-1 text-[11px] font-serif font-bold uppercase tracking-wider text-festive-crimson">
-                Rule 03
-              </span>
-              <img src="/images/figma/gingerbread-man.svg" alt="Gingerbread" class="w-7 h-7" />
-            </div>
-
-            <h3 class="text-sm font-serif font-bold uppercase tracking-wider text-festive-crimson">
-              Gift Rules
-            </h3>
-            <div class="text-xl sm:text-2xl font-serif font-bold text-festive-espresso my-2 leading-snug">
-              Unisex gifts only
-            </div>
-            <p class="text-xs text-festive-espresso/80 leading-relaxed font-serif">
-              Unisex gifts only — <strong>no food items, please!</strong> Must be enjoyable for anyone (brother or sister) and non-perishable.
-            </p>
-          </div>
-
-          <div class="mt-6 pt-4 border-t border-festive-sand text-[11px] font-semibold text-festive-crimson flex items-center gap-1.5 font-serif">
-            <Sparkles class="h-3 w-3 text-festive-crimson" />
-            <span>Lasting & Universal</span>
-          </div>
-        </div>
-
+          </li>
+        </ul>
       </div>
 
-      <!-- Thoughtful Philosophy Card -->
-      <div class="relative rounded-3xl border border-festive-pine/40 bg-festive-pine p-8 sm:p-12 text-center shadow-lg text-white">
-        
-        <div class="max-w-2xl mx-auto space-y-4">
-          <div class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 border border-white/20 text-festive-sand mb-1">
-            <Heart class="h-5 w-5 fill-festive-sand text-festive-sand" />
-          </div>
-
-          <p class="font-serif text-lg sm:text-2xl text-festive-sand leading-relaxed italic">
-            “{{ eventData.giftExchange.philosophy }}”
-          </p>
-
-          <p class="font-sans text-xs sm:text-sm font-medium text-white/90 mt-2 font-serif">
-            {{ eventData.giftExchange.callToAction }}
-          </p>
-
-          <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              @click="modalOpen = true"
-              type="button"
-              class="inline-flex items-center gap-2 rounded-full bg-festive-sand px-6 py-3 text-xs font-serif font-bold uppercase tracking-wider text-festive-espresso shadow-md hover:bg-[#dfc4a5] transition duration-300 hover:scale-105"
-            >
-              <Lightbulb class="h-4 w-4 text-festive-crimson" />
-              <span>Need Gift Ideas? View Inspiration 💡</span>
-            </button>
-          </div>
-        </div>
-
+      <!-- Why it matters -->
+      <div class="mx-auto mt-20 max-w-3xl text-center">
+        <p class="font-serif text-2xl italic leading-relaxed sm:text-3xl sm:leading-relaxed">
+          {{ giftExchange.philosophy }}
+        </p>
+        <p class="mt-6 font-serif text-lg text-ink-900/85">{{ giftExchange.callToAction }}</p>
+        <button
+          @click="modalOpen = true"
+          type="button"
+          class="mt-8 inline-flex items-center gap-2 rounded-full bg-pine-900 px-7 py-3.5 font-display text-lg font-bold tracking-wide text-ticket-50 shadow-lg transition hover:bg-pine-700"
+        >
+          <Lightbulb class="h-5 w-5 text-brass-300" />
+          See gift ideas
+        </button>
       </div>
-
     </div>
 
-    <!-- Modal for Gift Ideas -->
     <GiftIdeasModal
       :is-open="modalOpen"
       @close="modalOpen = false"

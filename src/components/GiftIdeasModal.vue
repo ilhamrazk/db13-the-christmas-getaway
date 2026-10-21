@@ -1,5 +1,6 @@
 <script setup>
-import { X, Lightbulb, CheckCircle2 } from 'lucide-vue-next'
+import { watch, onUnmounted, ref, nextTick } from 'vue'
+import { X } from 'lucide-vue-next'
 import { eventData } from '../data/eventData.js'
 
 const props = defineProps({
@@ -10,6 +11,23 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close'])
+const closeButton = ref(null)
+
+function onKeydown(e) {
+  if (e.key === 'Escape') emit('close')
+}
+
+watch(() => props.isOpen, async (open) => {
+  if (open) {
+    window.addEventListener('keydown', onKeydown)
+    await nextTick()
+    closeButton.value?.focus()
+  } else {
+    window.removeEventListener('keydown', onKeydown)
+  }
+})
+
+onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 </script>
 
 <template>
@@ -24,80 +42,59 @@ const emit = defineEmits(['close'])
     >
       <div
         v-if="isOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-festive-espresso/80 backdrop-blur-md"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-pine-950/90 p-4 backdrop-blur-sm"
         @click.self="emit('close')"
       >
         <div
-          class="relative w-full max-w-lg rounded-3xl border border-festive-sand bg-white p-6 sm:p-8 text-festive-espresso shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+          class="relative flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-xl bg-ticket-50 text-ink-900 shadow-2xl"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="gift-ideas-title"
         >
-          <!-- Corner Close Button -->
-          <button
-            @click="emit('close')"
-            type="button"
-            class="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-festive-cream text-festive-espresso hover:text-festive-crimson border border-festive-sand"
-          >
-            <X class="h-4 w-4" />
-          </button>
-
-          <!-- Modal Header -->
-          <div class="flex items-center gap-2 text-festive-crimson text-xs font-serif font-bold uppercase tracking-wider mb-2">
-            <Lightbulb class="h-4 w-4 text-festive-crimson" />
-            <span>DB13 Christmas Gift Inspiration</span>
-          </div>
-
-          <h3 class="text-xl sm:text-2xl font-serif font-bold text-festive-espresso">
-            Unisex Gift Ideas (Under Rp 100,000)
-          </h3>
-          <p class="text-xs text-festive-espresso/70 mt-1 mb-6 font-serif">
-            Following the rules: ~Rp 100,000 in value, universally enjoyable, and non-perishable.
-          </p>
-
-          <!-- Ideas List (Scrollable) -->
-          <div class="overflow-y-auto space-y-5 pr-1">
-            <div
-              v-for="(group, idx) in eventData.giftExchange.ideaSuggestions"
-              :key="idx"
-              class="rounded-2xl border border-festive-sand bg-festive-cream p-4"
-            >
-              <h4 class="text-xs font-serif font-bold uppercase tracking-wider text-festive-crimson mb-3 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-festive-crimson"></span>
-                {{ group.category }}
-              </h4>
-              <ul class="space-y-2">
-                <li
-                  v-for="(item, itemIdx) in group.items"
-                  :key="itemIdx"
-                  class="flex items-start gap-2 text-xs text-festive-espresso/85"
-                >
-                  <CheckCircle2 class="h-3.5 w-3.5 text-festive-crimson mt-0.5 flex-shrink-0" />
-                  <span>{{ item }}</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Brown Paper Wrapping Tip -->
-            <div class="rounded-2xl border border-dashed border-festive-sand bg-festive-sand/30 p-4 text-center">
-              <span class="text-lg">🎀</span>
-              <p class="text-xs font-serif font-semibold text-festive-crimson mt-1">
-                Don't Forget the Wrapping Rule!
-              </p>
-              <p class="text-[11px] text-festive-espresso/80 mt-0.5 font-serif">
-                Wrap your present in <strong>plain brown craft paper</strong> with festive ribbon or rustic twine for cozy holiday charm.
+          <div class="flex items-start justify-between gap-4 border-b border-ticket-300 px-6 pb-5 pt-6">
+            <div>
+              <h3 id="gift-ideas-title" class="font-display text-3xl font-black uppercase leading-none text-cherry-700">Gift ideas</h3>
+              <p class="mt-2 font-serif text-sm text-ink-700">
+                All around Rp 100,000, enjoyable for anyone, and none of them food.
               </p>
             </div>
-          </div>
-
-          <!-- Bottom Close Button -->
-          <div class="mt-6 pt-4 border-t border-festive-sand flex justify-end">
             <button
+              ref="closeButton"
               @click="emit('close')"
               type="button"
-              class="rounded-xl bg-festive-crimson px-5 py-2 text-xs font-serif font-bold uppercase tracking-wider text-white hover:bg-[#851621] transition"
+              class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-ink-900/15 transition hover:border-cherry-600 hover:text-cherry-600"
+              aria-label="Close gift ideas"
             >
-              Got It & Ready to Wrap! ✨
+              <X class="h-5 w-5" />
             </button>
           </div>
 
+          <div class="space-y-6 overflow-y-auto px-6 py-6">
+            <section v-for="group in eventData.giftExchange.ideaSuggestions" :key="group.category">
+              <h4 class="font-display text-xl font-extrabold tracking-wide text-pine-700">{{ group.category }}</h4>
+              <ul class="mt-2 space-y-2">
+                <li v-for="item in group.items" :key="item" class="flex gap-3 font-serif text-[15px] leading-snug text-ink-700">
+                  <span class="mt-2 h-1.5 w-1.5 flex-shrink-0 rotate-45 bg-cherry-600" aria-hidden="true"></span>
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+            </section>
+
+            <p class="kraft-paper rounded-lg px-5 py-4 font-serif text-[15px] leading-relaxed text-ink-900">
+              <strong class="font-display text-lg font-bold tracking-wide">Wrapping reminder:</strong>
+              plain brown craft paper, with twine or a festive ribbon if you like.
+            </p>
+          </div>
+
+          <div class="border-t border-ticket-300 px-6 py-4 text-right">
+            <button
+              @click="emit('close')"
+              type="button"
+              class="rounded-full bg-cherry-700 px-6 py-2.5 font-display text-base font-bold tracking-wide text-ticket-50 transition hover:bg-cherry-600"
+            >
+              Got it
+            </button>
+          </div>
         </div>
       </div>
     </transition>

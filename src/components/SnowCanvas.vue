@@ -13,18 +13,17 @@ let animationId = null
 let flakes = []
 
 function initFlakes(width, height) {
-  // Density tailored for performance & subtle festive feel
-  const count = Math.min(Math.floor((width * height) / 14000), 70)
+  // Density tailored for performance & a quiet, mountain-night snowfall
+  const count = Math.min(Math.floor((width * height) / 16000), 60)
   flakes = []
   for (let i = 0; i < count; i++) {
     flakes.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: Math.random() * 2.2 + 0.6,
-      speed: Math.random() * 0.9 + 0.3,
-      drift: Math.random() * 0.6 - 0.3,
-      opacity: Math.random() * 0.6 + 0.3,
-      pulse: Math.random() * 0.02
+      r: Math.random() * 1.8 + 0.5,
+      speed: Math.random() * 0.7 + 0.25,
+      drift: Math.random() * 0.5 - 0.25,
+      opacity: Math.random() * 0.5 + 0.3
     })
   }
 }
@@ -39,9 +38,7 @@ function animate() {
   for (const f of flakes) {
     ctx.beginPath()
     ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2)
-    ctx.fillStyle = `rgba(180, 150, 120, ${f.opacity * 0.45})`
-    ctx.shadowBlur = 3
-    ctx.shadowColor = 'rgba(212, 175, 55, 0.3)'
+    ctx.fillStyle = `rgba(246, 240, 228, ${f.opacity})`
     ctx.fill()
 
     f.y += f.speed
@@ -96,6 +93,6 @@ onUnmounted(() => {
     ref="canvasRef"
     aria-hidden="true"
     class="pointer-events-none fixed inset-0 z-20 h-full w-full transition-opacity duration-700"
-    :class="enabled ? 'opacity-80' : 'opacity-0'"
+    :class="enabled ? 'opacity-70' : 'opacity-0'"
   ></canvas>
 </template>
