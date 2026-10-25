@@ -15,6 +15,7 @@ const scrolled = ref(false)
 
 const links = [
   { href: '#ticket', label: 'Ticket' },
+  { href: '#memories', label: 'Memories' },
   { href: '#route', label: 'Route' },
   { href: '#dress-code', label: 'Dress code' },
   { href: '#packing', label: 'Packing list' },

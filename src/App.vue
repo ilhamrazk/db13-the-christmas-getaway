@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import SnowCanvas from './components/SnowCanvas.vue'
 import NavigationBar from './components/NavigationBar.vue'
 import HeroInvitation from './components/HeroInvitation.vue'
+import MemoriesSection from './components/MemoriesSection.vue'
 import EventDetails from './components/EventDetails.vue'
 import GiftExchange from './components/GiftExchange.vue'
 import FooterSection from './components/FooterSection.vue'
@@ -29,6 +30,9 @@ function toggleSnow() {
     <main class="relative z-10">
       <!-- Poster + boarding ticket -->
       <HeroInvitation />
+
+      <!-- Photos from past Christmases -->
+      <MemoriesSection />
 
       <!-- Route, dress code and packing list -->
       <EventDetails />
