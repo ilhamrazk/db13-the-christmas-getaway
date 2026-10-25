@@ -25,12 +25,6 @@ const route = [
     day: 'Saturday to Sunday',
     title: schedule.venue.name,
     note: schedule.venue.addressNote
-  },
-  {
-    when: '15:00 WIB',
-    day: 'Sunday, 8 November',
-    title: 'The getaway wraps up',
-    note: 'Head home with new stories and a lighter backpack.'
   }
 ]
 
