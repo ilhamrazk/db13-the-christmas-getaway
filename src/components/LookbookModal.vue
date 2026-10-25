@@ -65,7 +65,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
               @click="emit('close')"
               type="button"
               class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-ink-900/15 transition hover:border-cherry-600 hover:text-cherry-600"
-              aria-label="Close lookbook"
+              aria-label="Close"
             >
               <X class="h-5 w-5" />
             </button>
